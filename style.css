@@ -7,6 +7,7 @@
 }
 
 body {
+  font-family: sans-serif;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -42,19 +43,34 @@ body {
   height: 7rem;
   border-radius: 1rem;
   background-color: #e3f2fd;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding: 0.3rem;
+}
+
+.display-txt {
+  font-size: 46px;
+  color: #000;
 }
 
 .clear-delete-container {
   width: 30rem;
   height: 5rem;
-  background-color: #212529;
   border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
 
 .btns-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  justify-items: center;
+  align-items: center;
   width: 30rem;
-  height: 17rem;
-  background-color: #212529;
+  height: 19rem;
   border-radius: 1rem;
 }
 
@@ -70,4 +86,38 @@ strong {
   font-size: 18px;
   padding: 5px;
   color: #212529;
+}
+
+.clear-btn {
+  width: 14rem;
+  height: 3.5rem;
+  text-align: center;
+  border-radius: 1rem;
+  font-size: 22px;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #dd1c1a;
+  border: none;
+}
+
+.delete-btn {
+  width: 14rem;
+  height: 3.5rem;
+  text-align: center;
+  border-radius: 1rem;
+  font-size: 22px;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #ffc600;
+  border: none;
+}
+
+.btns {
+  width: 5rem;
+  height: 3rem;
+  border: none;
+  border-radius: 1rem;
+  background-color: #8b8c89;
+  font-size: 18px;
+  font-weight: bold;
 }
