@@ -27,7 +27,7 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 35rem;
-  height: 35rem;
+  height: 37rem;
   background-color: #0000004d;
   border-radius: 1rem;
   display: flex;
@@ -98,6 +98,7 @@ strong {
   color: #ffffff;
   background-color: #dd1c1a;
   border: none;
+  transition: all 0.4s ease;
 }
 
 .delete-btn {
@@ -110,6 +111,7 @@ strong {
   color: #ffffff;
   background-color: #ffc600;
   border: none;
+  transition: all 0.4s ease;
 }
 
 .btns {
@@ -120,4 +122,25 @@ strong {
   background-color: #8b8c89;
   font-size: 18px;
   font-weight: bold;
+  transition: all 0.3s ease-out;
+}
+
+.clear-btn:hover {
+  color: #dd1c1a;
+  background-color: #ffffff;
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background-color: #ffffff;
+  color: #ffc600;
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+.btns:hover {
+  background-color: #ffffff;
+  cursor: pointer;
+  transform: scale(1.02);
 }
