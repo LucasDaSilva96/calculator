@@ -34,8 +34,24 @@ btns.forEach((el) => {
       } else {
         first_nr += el.textContent;
       }
+    }
 
+    if (el.hasAttribute("data-operator")) {
+      controller === 1 ? (controller = 2) : (controller = 1);
+      math_operator = el.textContent;
+    }
+    if (controller === 2) {
+      if (typeof second_nr === "undefined") {
+        second_nr = el.textContent;
+      } else {
+        second_nr += el.textContent;
+      }
+    }
+
+    if (display_text.textContent === "0") {
       display_text.textContent = first_nr;
+    } else {
+      display_text.textContent += el.textContent;
     }
   });
 });
