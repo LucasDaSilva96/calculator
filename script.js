@@ -7,20 +7,18 @@ const btns = document.querySelectorAll(".btns");
 
 // This function calculates the values and return the result
 const operator_function = function (value1, operator, value2) {
-  Number(value1);
-  Number(value2);
-  console.log(value1);
-  console.log(operator);
-  console.log(value2);
+  const first_value = Number(value1);
+  const second_value = Number(value2);
+
   switch (operator) {
     case "x":
-      return value1 * value2;
+      return first_value * second_value;
     case "+":
-      return value1 + value2;
+      return first_value + second_value;
     case "-":
-      return value1 - value2;
+      return first_value - second_value;
     case "÷":
-      return value1 / value2;
+      return first_value / second_value;
     default:
       return "Something went wrong";
   }
@@ -51,7 +49,7 @@ btns.forEach((el) => {
       math_operator = el.textContent;
     }
 
-    if (display_text.textContent === "0") {
+    if (display_text.textContent === "0" && el.textContent != ".") {
       display_text.textContent = first_nr;
     } else {
       display_text.textContent += el.textContent;
@@ -70,3 +68,12 @@ btns.forEach((el) => {
     }
   });
 });
+
+// The clear function
+clear_btn.addEventListener("click", function () {
+  display_array = [];
+  first_nr = 0;
+  display_text.textContent = 0;
+});
+
+// console.log(operator_function(17.5, "+", 0.5));
