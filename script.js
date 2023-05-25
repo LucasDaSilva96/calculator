@@ -37,34 +37,77 @@ let display_array;
 // assigned the right value to the math_operator, second_nr, and the first_nr variables.
 btns.forEach((el) => {
   el.addEventListener("click", function () {
-    if (el.hasAttribute("data-number")) {
-      if (typeof first_nr === "undefined") {
-        first_nr = el.textContent;
-      } else {
-        first_nr += el.textContent;
+    // This makes sure that the user can't go outside of the calculators display
+    // with the numbers and operators.
+    if (display_text.textContent.length <= 14) {
+      if (el.hasAttribute("data-number")) {
+        if (typeof first_nr === "undefined") {
+          first_nr = el.textContent;
+        } else {
+          first_nr += el.textContent;
+        }
       }
-    }
 
-    if (el.hasAttribute("data-operator")) {
+      if (el.hasAttribute("data-operator")) {
+        math_operator = el.textContent;
+      }
+
+      if (display_text.textContent === "0" && el.textContent != ".") {
+        display_text.textContent = first_nr;
+      } else {
+        display_text.textContent += el.textContent;
+      }
+
+      if (el.id != "equalsbtn") {
+        display_array = display_text.textContent.split(math_operator);
+      }
+
+      if (el.id === "equalsbtn") {
+        display_text.textContent = operator_function(
+          display_array[0],
+          math_operator,
+          display_array[1]
+        );
+      }
+      // If the amount of numbers is at 15, then the user should only be able
+      // to press all the buttons with no number.
+    } else if (
+      el.hasAttribute("data-operator") &&
+      display_text.textContent.length === 15
+    ) {
       math_operator = el.textContent;
-    }
 
-    if (display_text.textContent === "0" && el.textContent != ".") {
-      display_text.textContent = first_nr;
-    } else {
       display_text.textContent += el.textContent;
-    }
 
-    if (el.id != "equalsbtn") {
-      display_array = display_text.textContent.split(math_operator);
-    }
+      if (el.id != "equalsbtn") {
+        display_array = display_text.textContent.split(math_operator);
+      }
 
-    if (el.id === "equalsbtn") {
-      display_text.textContent = operator_function(
-        display_array[0],
-        math_operator,
-        display_array[1]
-      );
+      if (el.id === "equalsbtn") {
+        display_text.textContent = operator_function(
+          display_array[0],
+          math_operator,
+          display_array[1]
+        );
+      }
+      // This makes sure the that user can't go outside of the calculators display after pressing one of the operators button.
+    } else if (
+      display_text.textContent.length >= 16 &&
+      display_text.textContent.length <= 17
+    ) {
+      display_text.textContent += el.textContent;
+
+      if (el.id != "equalsbtn") {
+        display_array = display_text.textContent.split(math_operator);
+      }
+
+      if (el.id === "equalsbtn") {
+        display_text.textContent = operator_function(
+          display_array[0],
+          math_operator,
+          display_array[1]
+        );
+      }
     }
   });
 });
@@ -75,5 +118,3 @@ clear_btn.addEventListener("click", function () {
   first_nr = 0;
   display_text.textContent = 0;
 });
-
-// console.log(operator_function(17.5, "+", 0.5));
