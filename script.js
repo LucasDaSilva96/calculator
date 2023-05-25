@@ -124,9 +124,10 @@ clear_btn.addEventListener("click", function () {
 delete_btn.addEventListener("click", function () {
   const display_string_array = display_text.textContent.split("");
   display_string_array.pop();
-  display_string_array.join();
+  display_string_array.join("").replace(",", "");
   display_text.textContent = display_string_array;
   if (display_text.textContent === "") {
     display_text.textContent = "0";
   }
+  console.log(display_string_array);
 });
