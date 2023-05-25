@@ -26,7 +26,6 @@ const operator_function = function (value1, operator, value2) {
 
 // These variables are for saving the first value, the match-operator and the second value.
 let math_operator;
-let second_nr;
 let first_nr;
 
 // This variable is for saving the input values in an array.
@@ -114,7 +113,11 @@ btns.forEach((el) => {
 
 // The clear function
 clear_btn.addEventListener("click", function () {
-  display_array = [];
-  first_nr = 0;
-  display_text.textContent = 0;
+  while (display_array.length > 0) {
+    display_array.pop();
+  }
+  display_text.textContent = "0";
+  first_nr = undefined;
 });
+
+// The delete function
