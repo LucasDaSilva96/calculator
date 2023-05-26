@@ -20,7 +20,7 @@ const operator_function = function (value1, operator, value2) {
     case "÷":
       return first_value / second_value;
     default:
-      return "Something went wrong";
+      return "Not a valid input";
   }
 };
 
@@ -32,10 +32,19 @@ let first_nr;
 // We can then use those values as input to the operator_function.
 let display_array;
 
+// This function checks if the user has a correct input to the calculator so that the calculator
+// can make a correct mathematical calculation.
+
 // This function is for displaying the current button, push the values to the display_array,
 // assigned the right value to the math_operator, second_nr, and the first_nr variables.
+display_text.textContent = "0";
 btns.forEach((el) => {
   el.addEventListener("click", function () {
+    // This checks if the user has a correct input to the calculator so that the calculator
+    // can make a correct mathematical calculation.
+    if (display_text.textContent === "0" && el.hasAttribute("data-operator")) {
+      return (display_text.textContent = "0");
+    }
     // This makes sure that the user can't go outside of the calculators display
     // with the numbers and operators.
     if (display_text.textContent.length <= 14) {
@@ -47,7 +56,7 @@ btns.forEach((el) => {
         }
       }
 
-      if (el.hasAttribute("data-operator")) {
+      if (el.hasAttribute("data-operator") && display_text.textContent != "0") {
         math_operator = el.textContent;
       }
 
@@ -108,7 +117,6 @@ btns.forEach((el) => {
         );
       }
     }
-    console.log(display_text.textContent);
   });
 });
 
