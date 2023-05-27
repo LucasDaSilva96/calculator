@@ -32,11 +32,19 @@ let first_nr;
 // We can then use those values as input to the operator_function.
 let display_array;
 
+// This is for making sure that the user can't type more then one "."
+let floating_point = true;
+
 // This function is for displaying the current button, push the values to the display_array,
 // assigned the right value to the math_operator, second_nr, and the first_nr variables.
 display_text.textContent = "0";
 btns.forEach((el) => {
   el.addEventListener("click", function () {
+    // This is for making sure that the user can't type more then one "."
+    if (el.id === "pointBtn") {
+      if (!floating_point) return;
+      floating_point = false;
+    }
     // This checks if the user has a correct input to the calculator so that the calculator
     // can make a correct mathematical calculation.
     if (display_text.textContent === "0" && el.hasAttribute("data-operator")) {
@@ -55,6 +63,8 @@ btns.forEach((el) => {
 
       if (el.hasAttribute("data-operator") && display_text.textContent != "0") {
         math_operator = el.textContent;
+        // This is for making sure that the user can't type more then one "."
+        floating_point = true;
       }
 
       if (display_text.textContent === "0" && el.textContent != ".") {
@@ -124,6 +134,7 @@ clear_btn.addEventListener("click", function () {
   }
   display_text.textContent = "0";
   first_nr = undefined;
+  floating_point = true;
 });
 
 // The delete function
