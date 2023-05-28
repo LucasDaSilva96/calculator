@@ -34,6 +34,7 @@ let display_array;
 
 // This is for making sure that the user can't type more then one "."
 let floating_point = true;
+let function_called = false;
 
 // This function is for displaying the current button, push the values to the display_array,
 // assigned the right value to the math_operator, second_nr, and the first_nr variables.
@@ -42,12 +43,15 @@ btns.forEach((el) => {
   el.addEventListener("click", function () {
     // This is for making sure that the user can't type more then one "."
     if (el.id === "pointBtn") {
-      if (!floating_point) return;
+      if (!floating_point || function_called) return;
       floating_point = false;
     }
     // This checks if the user has a correct input to the calculator so that the calculator
     // can make a correct mathematical calculation.
-    if (display_text.textContent === "0" && el.hasAttribute("data-operator")) {
+    if (
+      (display_text.textContent === "0" && el.hasAttribute("data-operator")) ||
+      (el.id === "equalsbtn" && display_text.textContent === "0")
+    ) {
       return (display_text.textContent = "0");
     }
     // This makes sure that the user can't go outside of the calculators display
@@ -83,7 +87,11 @@ btns.forEach((el) => {
           math_operator,
           display_array[1]
         );
+        function_called = true;
+      } else {
+        function_called = false;
       }
+
       // If the amount of numbers is at 15, then the user should only be able
       // to press all the buttons with no number.
     } else if (
@@ -104,7 +112,11 @@ btns.forEach((el) => {
           math_operator,
           display_array[1]
         );
+        function_called = true;
+      } else {
+        function_called = false;
       }
+
       // This makes sure the that user can't go outside of the calculators display after pressing one of the operators button.
     } else if (
       display_text.textContent.length >= 16 &&
@@ -122,6 +134,9 @@ btns.forEach((el) => {
           math_operator,
           display_array[1]
         );
+        function_called = true;
+      } else {
+        function_called = false;
       }
     }
   });
