@@ -58,7 +58,7 @@ let floating_point = true;
 let function_called = false;
 
 // This function is for displaying the current button, push the values to the display_array,
-// assigned the right value to the math_operator, second_nr, and the first_nr variables.
+// assigned the right expression to the operator_function
 display_text.textContent = "0";
 btns.forEach((el) => {
   el.addEventListener("click", function () {
@@ -104,7 +104,6 @@ btns.forEach((el) => {
 
       if (el.id === "equalsbtn") {
         display_text.textContent = operator_function(display_array);
-        function_called = true;
       } else {
         function_called = false;
       }
@@ -125,7 +124,6 @@ btns.forEach((el) => {
 
       if (el.id === "equalsbtn") {
         display_text.textContent = operator_function(display_array);
-        function_called = true;
       } else {
         function_called = false;
       }
@@ -143,7 +141,6 @@ btns.forEach((el) => {
 
       if (el.id === "equalsbtn") {
         display_text.textContent = operator_function(display_array);
-        function_called = true;
       } else {
         function_called = false;
       }
@@ -157,6 +154,7 @@ clear_btn.addEventListener("click", function () {
   display_text.textContent = "0";
   first_nr = undefined;
   floating_point = true;
+  function_called = false;
 });
 
 // The delete function
@@ -168,7 +166,11 @@ delete_btn.addEventListener("click", function () {
 
   if (display_text_array.length === 0) {
     display_text.textContent = "0";
+    first_nr = undefined;
   } else {
     display_text.textContent = display_text_array.join("");
   }
+  floating_point = true;
+  function_called = false;
+  display_array = display_text.textContent;
 });
