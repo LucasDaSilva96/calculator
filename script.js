@@ -153,9 +153,7 @@ btns.forEach((el) => {
 
 // The clear function
 clear_btn.addEventListener("click", function () {
-  while (display_array.length > 0) {
-    display_array.pop();
-  }
+  display_array = "";
   display_text.textContent = "0";
   first_nr = undefined;
   floating_point = true;
