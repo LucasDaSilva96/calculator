@@ -6,22 +6,43 @@ const delete_btn = document.querySelector(".delete-btn");
 const btns = document.querySelectorAll(".btns");
 
 // This function calculates the values and return the result
-const operator_function = function (value1, operator, value2) {
-  const first_value = Number(value1);
-  const second_value = Number(value2);
+const operator_function = function (expression) {
+  const operators = ["x", "÷", "+", "-"];
 
-  switch (operator) {
-    case "x":
-      return first_value * second_value;
-    case "+":
-      return first_value + second_value;
-    case "-":
-      return first_value - second_value;
-    case "÷":
-      return first_value / second_value;
-    default:
-      return "Not a valid input";
+  // Remove any spaces from the expression
+  const cleanedExpression = expression.replace(/\s/g, "");
+  // Replace comma with dot for decimal values
+  const decimalExpression = cleanedExpression.replace(/,/g, ".");
+  // Split the expression into separate values and operators
+  const values = decimalExpression.split(/([+x÷-])/);
+  let result = Number(values[0]);
+  let current_operator = values[1];
+  for (let i = 1; i < values.length; i += 2) {
+    const element = values[i];
+    const next_value = Number(values[i + 1]);
+
+    if (!operators.includes(element) || isNaN(next_value)) {
+      return "Invalid input";
+    }
+    current_operator = element;
+
+    switch (current_operator) {
+      case operators[0]:
+        result *= next_value;
+        break;
+      case operators[1]:
+        result /= next_value;
+        break;
+      case operators[2]:
+        result += next_value;
+        break;
+      case operators[3]:
+        result -= next_value;
+        break;
+    }
   }
+
+  return result;
 };
 
 // These variables are for saving the first value, the match-operator and the second value.
@@ -78,15 +99,11 @@ btns.forEach((el) => {
       }
 
       if (el.id != "equalsbtn") {
-        display_array = display_text.textContent.split(math_operator);
+        display_array = display_text.textContent;
       }
 
       if (el.id === "equalsbtn") {
-        display_text.textContent = operator_function(
-          display_array[0],
-          math_operator,
-          display_array[1]
-        );
+        display_text.textContent = operator_function(display_array);
         function_called = true;
       } else {
         function_called = false;
@@ -103,15 +120,11 @@ btns.forEach((el) => {
       display_text.textContent += el.textContent;
 
       if (el.id != "equalsbtn") {
-        display_array = display_text.textContent.split(math_operator);
+        display_array = display_text.textContent;
       }
 
       if (el.id === "equalsbtn") {
-        display_text.textContent = operator_function(
-          display_array[0],
-          math_operator,
-          display_array[1]
-        );
+        display_text.textContent = operator_function(display_array);
         function_called = true;
       } else {
         function_called = false;
@@ -125,15 +138,11 @@ btns.forEach((el) => {
       display_text.textContent += el.textContent;
 
       if (el.id != "equalsbtn") {
-        display_array = display_text.textContent.split(math_operator);
+        display_array = display_text.textContent;
       }
 
       if (el.id === "equalsbtn") {
-        display_text.textContent = operator_function(
-          display_array[0],
-          math_operator,
-          display_array[1]
-        );
+        display_text.textContent = operator_function(display_array);
         function_called = true;
       } else {
         function_called = false;
