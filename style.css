@@ -129,6 +129,7 @@ strong {
   font-size: 18px;
   font-weight: bold;
   transition: all 0.1s ease;
+  color: #000;
 }
 
 .clear-btn:hover {
@@ -166,4 +167,93 @@ strong {
 .icon:active {
   transform: scale(1.1);
   background-color: #e3f2fd5b;
+}
+
+/* ***************** Media Queries **************/
+@media (max-width: 850px) {
+  .btns-container {
+    width: 25rem;
+    height: 14rem;
+  }
+
+  .display-container {
+    width: 25rem;
+    height: 6rem;
+  }
+
+  .container {
+    width: 30rem;
+    height: 32rem;
+  }
+
+  .clear-btn,
+  .delete-btn {
+    width: 9rem;
+  }
+
+  .clear-delete-container {
+    width: 25rem;
+  }
+}
+
+@media (max-width: 650px) {
+  .btns-container {
+    width: 20rem;
+  }
+
+  .display-container {
+    width: 20rem;
+    height: 6rem;
+  }
+
+  .container {
+    width: 22rem;
+    height: 29rem;
+  }
+
+  .clear-btn,
+  .delete-btn {
+    width: 9rem;
+  }
+
+  .clear-delete-container {
+    width: 20rem;
+  }
+
+  .btns {
+    width: 5rem;
+  }
+}
+
+@media (max-width: 465px) {
+  .display-container {
+    width: 22rem;
+    height: 6rem;
+  }
+
+  .container {
+    width: 23rem;
+    height: 37rem;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .clear-btn,
+  .delete-btn {
+    width: 9rem;
+  }
+
+  .clear-delete-container {
+    width: 20rem;
+  }
+
+  .btns-container {
+    margin-top: 1.5rem;
+    width: 22rem;
+    height: 18rem;
+  }
+
+  .btns {
+    font-size: 22px;
+  }
 }
