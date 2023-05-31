@@ -7,7 +7,7 @@ const btns = document.querySelectorAll(".btns");
 // This function calculates the values and return the result
 const operator_function = function (expression) {
   const operators = ["x", "÷", "+", "-"];
-  console.log(expression);
+
   // Remove any spaces from the expression
   const cleanedExpression = expression.replace(/\s/g, "");
   // Replace comma with dot for decimal values
@@ -176,48 +176,99 @@ delete_btn.addEventListener("click", function () {
 
 // Function for the keyboard keys
 window.addEventListener("keydown", function (e) {
-  if (isLetter(e.key)) return;
-  let modified_key;
-  let operators = ["*", "/", "x", "÷", "+", "-"];
-  // This is for converting the x -> * and / -> ÷
-  console.log(typeof e.key);
-  if (e.key === "*") {
-    modified_key = "x";
-    operators.push(modified_key);
-  } else if (e.key === "/") {
-    modified_key = "÷";
-    operators.push(modified_key);
-  }
-
-  // This is for making sure that the user can't type letters to the calculator
-  if (e.code !== "Space" && e.key !== "Shift") {
-    // This is for making sure that the user can't type more then one "."
-    if (e.key === ".") {
-      if (!floating_point || function_called) return;
-      floating_point = false;
+  // This is the same as the delete function
+  if (e.key === "Backspace") {
+    const display_text_array = display_text.textContent.split("");
+    if (display_text_array.length > 0) {
+      display_text_array.pop();
     }
 
-    // This checks if the user has a correct input to the calculator so that the calculator
-    // can make a correct mathematical calculation.
-    if (
-      (display_text.textContent === "0" && operators.includes(e.key)) ||
-      (e.key === "Enter" && display_text.textContent === "0")
-    ) {
-      return (display_text.textContent = "0");
+    if (display_text_array.length === 0) {
+      display_text.textContent = "0";
+      first_nr = undefined;
+    } else {
+      display_text.textContent = display_text_array.join("");
+    }
+    floating_point = true;
+    function_called = false;
+    display_array = cleaner_display_function(display_text.textContent);
+  } else if (isLetter(e.key) && e.key !== "Backspace") {
+    return;
+  } else {
+    let modified_key;
+    let operators = ["*", "/", "x", "÷", "+", "-"];
+    // This is for converting the x -> * and / -> ÷
+
+    if (e.key === "*") {
+      modified_key = "x";
+      operators.push(modified_key);
+    } else if (e.key === "/") {
+      modified_key = "÷";
+      operators.push(modified_key);
     }
 
-    // This makes sure that the user can't go outside of the calculators display
-    // with the numbers and operators.
-    if (display_text.textContent.length <= 14) {
-      if (!isNaN(e.key)) {
-        if (typeof first_nr === "undefined") {
-          first_nr = e.key;
-        } else {
-          first_nr += e.key;
-        }
+    // This is for making sure that the user can't type letters to the calculator
+    if (e.code !== "Space" && e.key !== "Shift") {
+      // This is for making sure that the user can't type more then one "."
+      if (e.key === ".") {
+        if (!floating_point || function_called) return;
+        floating_point = false;
       }
 
-      if (operators.includes(e.key) && display_text.textContent != "0") {
+      // This checks if the user has a correct input to the calculator so that the calculator
+      // can make a correct mathematical calculation.
+      if (
+        (display_text.textContent === "0" && operators.includes(e.key)) ||
+        (e.key === "Enter" && display_text.textContent === "0")
+      ) {
+        return (display_text.textContent = "0");
+      }
+
+      // This makes sure that the user can't go outside of the calculators display
+      // with the numbers and operators.
+      if (display_text.textContent.length <= 14) {
+        if (!isNaN(e.key)) {
+          if (typeof first_nr === "undefined") {
+            first_nr = e.key;
+          } else {
+            first_nr += e.key;
+          }
+        }
+
+        if (operators.includes(e.key) && display_text.textContent != "0") {
+          if (e.key === "*") {
+            math_operator = "x";
+          } else if (e.key === "/") {
+            math_operator = "÷";
+          } else {
+            math_operator = e.key;
+          }
+          // This is for making sure that the user can't type more then one "."
+          floating_point = true;
+        }
+
+        if (display_text.textContent === "0" && e.key != ".") {
+          display_text.textContent = first_nr;
+        } else {
+          display_text.textContent += e.key;
+        }
+
+        if (e.key != "Enter") {
+          display_array = cleaner_display_function(display_text.textContent);
+        }
+
+        if (e.key === "Enter") {
+          display_text.textContent = operator_function(display_array);
+        } else {
+          function_called = false;
+        }
+
+        // If the amount of numbers is at 15, then the user should only be able
+        // to press all the buttons with no number.
+      } else if (
+        operators.includes(e.key) &&
+        display_text.textContent.length === 15
+      ) {
         if (e.key === "*") {
           math_operator = "x";
         } else if (e.key === "/") {
@@ -225,67 +276,35 @@ window.addEventListener("keydown", function (e) {
         } else {
           math_operator = e.key;
         }
-        // This is for making sure that the user can't type more then one "."
-        floating_point = true;
-      }
 
-      if (display_text.textContent === "0" && e.key != ".") {
-        display_text.textContent = first_nr;
-      } else {
         display_text.textContent += e.key;
-      }
 
-      if (e.key != "Enter") {
-        display_array = cleaner_display_function(display_text.textContent);
-      }
+        if (e.key != "Enter") {
+          display_array = cleaner_display_function(display_text.textContent);
+        }
 
-      if (e.key === "Enter") {
-        display_text.textContent = operator_function(display_array);
-      } else {
-        function_called = false;
-      }
+        if (e.key === "Enter") {
+          display_text.textContent = operator_function(display_array);
+        } else {
+          function_called = false;
+        }
 
-      // If the amount of numbers is at 15, then the user should only be able
-      // to press all the buttons with no number.
-    } else if (
-      operators.includes(e.key) &&
-      display_text.textContent.length === 15
-    ) {
-      if (e.key === "*") {
-        math_operator = "x";
-      } else if (e.key === "/") {
-        math_operator = "÷";
-      } else {
-        math_operator = e.key;
-      }
+        // This makes sure the that user can't go outside of the calculators display after pressing one of the operators button.
+      } else if (
+        display_text.textContent.length >= 16 &&
+        display_text.textContent.length <= 17
+      ) {
+        display_text.textContent += e.key;
 
-      display_text.textContent += e.key;
+        if (e.key != "Enter") {
+          display_array = cleaner_display_function(display_text.textContent);
+        }
 
-      if (e.key != "Enter") {
-        display_array = cleaner_display_function(display_text.textContent);
-      }
-
-      if (e.key === "Enter") {
-        display_text.textContent = operator_function(display_array);
-      } else {
-        function_called = false;
-      }
-
-      // This makes sure the that user can't go outside of the calculators display after pressing one of the operators button.
-    } else if (
-      display_text.textContent.length >= 16 &&
-      display_text.textContent.length <= 17
-    ) {
-      display_text.textContent += e.key;
-
-      if (e.key != "Enter") {
-        display_array = cleaner_display_function(display_text.textContent);
-      }
-
-      if (e.key === "Enter") {
-        display_text.textContent = operator_function(display_array);
-      } else {
-        function_called = false;
+        if (e.key === "Enter") {
+          display_text.textContent = operator_function(display_array);
+        } else {
+          function_called = false;
+        }
       }
     }
   }
