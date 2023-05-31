@@ -76,7 +76,7 @@ btns.forEach((el) => {
     }
     // This makes sure that the user can't go outside of the calculators display
     // with the numbers and operators.
-    if (display_text.textContent.length <= 14) {
+    if (display_text.textContent.length <= 10) {
       if (el.hasAttribute("data-number")) {
         if (typeof first_nr === "undefined") {
           first_nr = el.textContent;
@@ -111,7 +111,7 @@ btns.forEach((el) => {
       // to press all the buttons with no number.
     } else if (
       el.hasAttribute("data-operator") &&
-      display_text.textContent.length === 15
+      display_text.textContent.length === 11
     ) {
       math_operator = el.textContent;
 
@@ -129,8 +129,8 @@ btns.forEach((el) => {
 
       // This makes sure the that user can't go outside of the calculators display after pressing one of the operators button.
     } else if (
-      display_text.textContent.length >= 16 &&
-      display_text.textContent.length <= 17
+      display_text.textContent.length >= 12 &&
+      display_text.textContent.length <= 13
     ) {
       display_text.textContent += el.textContent;
 
@@ -226,7 +226,7 @@ window.addEventListener("keydown", function (e) {
 
       // This makes sure that the user can't go outside of the calculators display
       // with the numbers and operators.
-      if (display_text.textContent.length <= 14) {
+      if (display_text.textContent.length <= 10) {
         if (!isNaN(e.key)) {
           if (typeof first_nr === "undefined") {
             first_nr = e.key;
@@ -267,7 +267,7 @@ window.addEventListener("keydown", function (e) {
         // to press all the buttons with no number.
       } else if (
         operators.includes(e.key) &&
-        display_text.textContent.length === 15
+        display_text.textContent.length === 11
       ) {
         if (e.key === "*") {
           math_operator = "x";
@@ -291,8 +291,8 @@ window.addEventListener("keydown", function (e) {
 
         // This makes sure the that user can't go outside of the calculators display after pressing one of the operators button.
       } else if (
-        display_text.textContent.length >= 16 &&
-        display_text.textContent.length <= 17
+        display_text.textContent.length >= 12 &&
+        display_text.textContent.length <= 13
       ) {
         display_text.textContent += e.key;
 
